@@ -76,7 +76,7 @@ Ask a question to agent like below:
 
 - The project uses basic chunking strategic of `Fixed size chunking with overlap`.
 - Recommended model for chunking is `text-embedding-3-small`.
-- Model used for chatbot is as follow `gpt-4o-mini` which is good enough to hold the context window for replying the question from RAG (PGVector) database. 
+- Model used for chatbot is `gpt-4o-mini` which is good enough to hold the context window for replying the question from RAG (PGVector) database. 
 - The system is designed so it can be expanded by adding more agents without changing the high-level architecture. 
 
 ## License
