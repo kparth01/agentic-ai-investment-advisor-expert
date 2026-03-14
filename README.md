@@ -17,7 +17,7 @@
     docker.io/pgvector/pgvector:pg16
     ```
 
-2. Create a document table in DB which can store vector DB.
+2. Create a document table to store embeddings.
     ```
     CREATE TABLE documents (
         id SERIAL PRIMARY KEY,
@@ -26,14 +26,14 @@
         doc_name VARCHAR(255)
     );
     ```
-2. Navigate to Project root folder.
-3. Open "cmd" / "terminal"
-4. Create virtual enviornment: `python -m venv venv`
-5. Activate virtual enviornment: `venv\Scripts\activate`
-6. Install dependencies: `pip install -r requirements.txt`
-7. Setup enviornment variables: `cp .env.example .env`
-8. Run program to populate VectorDB: `python ingest.py` 
-8. Run program: `python main.py`
+3. Navigate to Project root folder.
+4. Open "cmd" / "terminal"
+5. Create virtual enviornment: `python -m venv venv`
+6. Activate virtual enviornment: `venv\Scripts\activate`
+7. Install dependencies: `pip install -r requirements.txt`
+8. Setup enviornment variables: `cp .env.example .env`
+9. Run program to populate VectorDB: `python ingest.py` 
+10. Run program: `python main.py`
 
 ## Project Structure
 
