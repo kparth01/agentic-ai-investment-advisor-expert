@@ -70,7 +70,13 @@ Ask a question to agent like below:
 
 `👤 You: what are the key financial indicators for my investment?`
 
+Console Application:
+
 ![alt text](image.png)
+
+Web Application:
+
+![alt text](web-app.png)
 
 ## Technical Explanation
 

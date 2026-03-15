@@ -107,7 +107,7 @@ Projected fair value suggests a **15–20% upside over the next 24 months**.
 
 ---
 
-## Helios Renewable Group (HRG)
+## / (HRG)
 
 Helios Renewable Group operates large scale solar and wind farms across Europe and South America.
 
