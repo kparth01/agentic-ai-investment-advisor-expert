@@ -15,6 +15,27 @@ class Ingest:
         self.EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL")
         self.OPEN_API_KEY = os.getenv("OPENAI_API_KEY")
 
+    def initialize_db(self): 
+        conn = db.get_db_connection()
+
+        with conn.cursor() as cur:
+
+            cur.execute("""
+            CREATE EXTENSION IF NOT EXISTS vector;
+            """)
+
+            cur.execute("""
+            CREATE TABLE IF NOT EXISTS documents (
+                id SERIAL PRIMARY KEY,
+                content TEXT,
+                embedding vector(1536),
+                doc_name TEXT
+            );
+            """)
+
+        conn.commit()
+        conn.close()
+
     def load_document(self, doc_name) -> Document:
         print("load docs")
         file_dir = os.path.dirname(os.path.abspath(__file__))
@@ -73,10 +94,42 @@ class Ingest:
         except Exception as e:
              print("Error while creating vector embeddings and storing in DB...", e)
              return False
+        
+    def ingest_document(self):
+        try:
+            self.initialize_db()
+
+            doc_arr = ["investment.md", "equity_stocks_investment.md"]
+            document: Document
+            for i in range(0, len(doc_arr)):
+                doc_name = doc_arr[i]
+                print(f"initiating process for {doc_name}")
+                document = self.load_document(doc_name)
+                
+                chunks = self.create_chunks(document=document)
+                result = self.store_in_vectordb(chunks=chunks, doc_name=doc_name)
+                if result:
+                    print(f"Embeddings created successfully for document: {doc_name}")
+                else:
+                    print(f"Error occured while embedding document {doc_name} for RAG")
+
+                document = None
+        except Exception as e:        
+            return {
+                "status": "failed",
+                "exception": e.__cause__()
+            }
+        
+        return {
+            "status": "success"
+        }
+
 
 if __name__ == "__main__":
     # Get strategy from command line argument
     ingest = Ingest()
+    ingest.initialize_db()
+
     doc_arr = ["investment.md", "equity_stocks_investment.md"]
     document: Document
     for i in range(0, len(doc_arr)):
@@ -92,3 +145,5 @@ if __name__ == "__main__":
             print(f"Error occured while embedding document {doc_name} for RAG")
 
         document = None
+
+    
